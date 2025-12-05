@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Customer {
+  id        Int       @id @default(autoincrement())
+  fullName  String    @db.VarChar(120)
+  phone     String    @db.VarChar(20)
+  joinedAt  DateTime  @default(now())
+
+  orders    Order[]   // Customer bisa membuat banyak order
+
+  @@map("customers")
+}
+
+// RESTAURANT — tempat pesan makanan
+model Restaurant {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(120)
+  details     String?   @db.Text
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+
+  orders      Order[]   // Satu restoran memiliki banyak order
+
+  @@map("restaurants")
+}
+
+// ORDER — pesanan
+model Order {
+  id            Int       @id @default(autoincrement())
+  totalItems    Int       // jumlah item
+  etaMinutes    Int       // perhitungan: totalItems * 10 + 10
+  orderedAt     DateTime  @default(now())
+
+  // Foreign Keys
+  customerId    Int
+  restaurantId  Int
+
+  // Relations
+  customer      Customer   @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  restaurant    Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@map("orders")
+}
