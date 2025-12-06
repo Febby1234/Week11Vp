@@ -1,6 +1,10 @@
-import express from 'express'
-import { CustomerController } from '../controllers/customer-controller'
-import { RestaurantController } from '../controllers/restaurant-controller'
-import { OrderController } from '../controllers/order-controller'
+import { Router } from "express";
+import { customerRouter } from "./customer-route";
+import { restaurantRouter } from "./restaurant-route";
+import { orderRouter } from "./order-route";
 
-export const publicRouter = express.Router()
+export const publicRouter = Router();
+
+publicRouter.use("/customers", customerRouter);
+publicRouter.use("/restaurants", restaurantRouter);
+publicRouter.use("/orders", orderRouter);
