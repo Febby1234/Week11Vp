@@ -12,6 +12,11 @@ export interface CreateCustomerRequest {
   phone: string;
 }
 
+export interface UpdateCustomerRequest {
+  name?: string
+  phoneNumber?: string
+}
+
 export function toCustomerResponse(customer: Customer): CustomerResponse {
   return {
     id: customer.id,
