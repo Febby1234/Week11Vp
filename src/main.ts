@@ -1,7 +1,7 @@
 import express from "express"
 import { PORT } from "./utils/env-util"
-import { publicRouter } from "./routes/public-api.ts"
-import { errorMiddleware } from "./middlewares/error-middleware.ts";
+import { publicRouter } from "./routes/public-api"
+import { errorMiddleware } from "./middlewares/error-middleware";
 
 const app = express();
 

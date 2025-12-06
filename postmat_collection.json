@@ -1,0 +1,125 @@
+{
+  "info": {
+    "_postman_id": "week11vp-collection-001",
+    "name": "Order Management — Local",
+    "description": "Collection for local testing of Customers, Restaurants and Orders (mounted at /api).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Customer Endpoints",
+      "item": [
+        {
+          "name": "Create Customer",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"fullName\": \"Raina Putri\",\n  \"phone\": \"+628111223344\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/customers", "host": ["{{baseUrl}}"], "path": ["api","customers"] }
+          }
+        },
+        {
+          "name": "List Customers",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/customers", "host": ["{{baseUrl}}"], "path": ["api","customers"] } }
+        },
+        {
+          "name": "Get Customer by ID (example)",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/customers/2", "host": ["{{baseUrl}}"], "path": ["api","customers","2"] } }
+        },
+        {
+          "name": "Patch Customer",
+          "request": {
+            "method": "PATCH",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"fullName\": \"Raina P.\",\n  \"phone\": \"+628119998877\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/customers/:id", "host": ["{{baseUrl}}"], "path": ["api","customers",":id"] }
+          }
+        },
+        {
+          "name": "Delete Customer",
+          "request": { "method": "DELETE", "url": { "raw": "{{baseUrl}}/api/customers/:id", "host": ["{{baseUrl}}"], "path": ["api","customers",":id"] } }
+        }
+      ]
+    },
+    {
+      "name": "Restaurant Endpoints",
+      "item": [
+        {
+          "name": "Add Restaurant",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Warung Soto\",\n  \"details\": \"Traditional soto with homemade broth\",\n  \"active\": true\n}" },
+            "url": { "raw": "{{baseUrl}}/api/restaurants", "host": ["{{baseUrl}}"], "path": ["api","restaurants"] }
+          }
+        },
+        {
+          "name": "Get All Restaurants",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/restaurants", "host": ["{{baseUrl}}"], "path": ["api","restaurants"] } }
+        },
+        {
+          "name": "Get Restaurant (example)",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/restaurants/3", "host": ["{{baseUrl}}"], "path": ["api","restaurants","3"] } }
+        },
+        {
+          "name": "Filter Restaurants by Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/restaurants/status?isOpen=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","restaurants","status"],
+              "query": [ { "key": "isOpen", "value": "true" } ]
+            }
+          }
+        },
+        {
+          "name": "Update Restaurant",
+          "request": {
+            "method": "PATCH",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"details\": \"Open for delivery and takeaway\",\n  \"active\": true\n}" },
+            "url": { "raw": "{{baseUrl}}/api/restaurants/:id", "host": ["{{baseUrl}}"], "path": ["api","restaurants",":id"] }
+          }
+        },
+        {
+          "name": "Remove Restaurant",
+          "request": { "method": "DELETE", "url": { "raw": "{{baseUrl}}/api/restaurants/:id", "host": ["{{baseUrl}}"], "path": ["api","restaurants",":id"] } }
+        }
+      ]
+    },
+    {
+      "name": "Order Endpoints",
+      "item": [
+        {
+          "name": "Create Order (sample)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"totalItems\": 3,\n  \"customerId\": 1,\n  \"restaurantId\": 2\n}" },
+            "url": { "raw": "{{baseUrl}}/api/orders", "host": ["{{baseUrl}}"], "path": ["api","orders"] }
+          }
+        },
+        {
+          "name": "List Orders",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/orders", "host": ["{{baseUrl}}"], "path": ["api","orders"] } }
+        },
+        {
+          "name": "Orders By Customer",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/orders/customer/:customerId", "host": ["{{baseUrl}}"], "path": ["api","orders","customer",":customerId"] } }
+        },
+        {
+          "name": "Orders By Restaurant",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/orders/restaurant/:restaurantId", "host": ["{{baseUrl}}"], "path": ["api","orders","restaurant",":restaurantId"] } }
+        }
+      ]
+    }
+  ]
+}
