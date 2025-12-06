@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
@@ -19,12 +19,11 @@ model Customer {
   phone     String    @db.VarChar(20)
   joinedAt  DateTime  @default(now())
 
-  orders    Order[]   // Customer bisa membuat banyak order
+  orders    Order[] 
 
   @@map("customers")
 }
 
-// RESTAURANT — tempat pesan makanan
 model Restaurant {
   id          Int       @id @default(autoincrement())
   name        String    @db.VarChar(120)
@@ -32,15 +31,14 @@ model Restaurant {
   active      Boolean   @default(true)
   createdAt   DateTime  @default(now())
 
-  orders      Order[]   // Satu restoran memiliki banyak order
+  orders      Order[]   
 
   @@map("restaurants")
 }
 
-// ORDER — pesanan
 model Order {
   id            Int       @id @default(autoincrement())
-  totalItems    Int       // jumlah item
+  totalItems    Int       
   etaMinutes    Int       // perhitungan: totalItems * 10 + 10
   orderedAt     DateTime  @default(now())
 
